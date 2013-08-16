@@ -64,22 +64,6 @@ int main(int argc, char **argv) {
   }
   //load the image and give us our input and output pointers
   preProcess(&inputVals, &inputPos, &outputVals, &outputPos, numElems, input_file, template_file);
-//  unsigned int n = numElems;
-//  std::cout << "APP: " << numElems << "n: " << n << std::endl;
-  unsigned int *h_in = new unsigned int[numElems];
-  cudaMemcpy(h_in, inputVals, sizeof(unsigned int) * (int)numElems, cudaMemcpyDeviceToHost);
-//  {
-//	  std::cout << "ASASSA" << std::endl;
-//  }
-  int numb = 0;
-  for(unsigned int i = 0; i < numElems; ++i)
-  {
-	  if(h_in[i] == 0) {
-		  numb++;
-	  }
-  }
-  std::cout << "PPP: " << numb << std::endl;
-
 
   GpuTimer timer;
   timer.Start();
@@ -126,13 +110,6 @@ int main(int argc, char **argv) {
 
   thrust::host_vector<unsigned int> h_outputVals(numElems);
   thrust::host_vector<unsigned int> h_outputPos(numElems);
-
-  int num = 0;
-  for(unsigned int i = 0; i < numElems; ++i)
-  {
-	  if(h_inputVals[i] == 0) num++;
-  }
-  std::cout << "NNNN: " << num << std::endl;
 
   reference_calculation(&h_inputVals[0], &h_inputPos[0],
 						&h_outputVals[0], &h_outputPos[0],

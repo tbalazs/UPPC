@@ -2,23 +2,12 @@
 // For memset
 #include <cstring>
 
-#include <fstream>
-#include <iostream>
-
 void reference_calculation(unsigned int* inputVals,
                            unsigned int* inputPos,
                            unsigned int* outputVals,
                            unsigned int* outputPos,
                            const size_t numElems)
 {
-  std::ofstream fi;
-  fi.open("ri.out", std::ofstream::out);
-  for(unsigned int i = 0; i < numElems; ++i)
-  {
-	  fi << inputVals[i] << std::endl;
-  }
-  fi.close();
-
   const int numBits = 1;
   const int numBins = 1 << numBits;
 
@@ -67,14 +56,6 @@ void reference_calculation(unsigned int* inputVals,
   //we did an even number of iterations, need to copy from input buffer into output
   std::copy(inputVals, inputVals + numElems, outputVals);
   std::copy(inputPos, inputPos + numElems, outputPos);
-
-  std::ofstream f;
-  f.open("r.out", std::ofstream::out);
-  for(unsigned int i = 0; i < numElems; ++i)
-  {
-	  f << outputVals[i] << std::endl;
-  }
-  f.close();
 
   delete[] binHistogram;
   delete[] binScan;
